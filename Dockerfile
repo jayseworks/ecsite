@@ -2,21 +2,20 @@ FROM ruby:3.3
 
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
+  libsqlite3-dev \
   sqlite3 \
-  libsqlite3-dev
+  nodejs \
+  npm
 
 WORKDIR /app
 
 RUN gem install bundler
 
-COPY Gemfile Gemfile.lock ./
-RUN bundle install
-
-COPY . .
-
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-EXPOSE 3000
-CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]

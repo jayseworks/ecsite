@@ -5,11 +5,5 @@ services:
     build: .
     volumes:
       - .:/app
-      - sqlite-data:/app/db
     ports:
       - "3000:3000"
-    stdin_open: true
-    tty: true
-
-volumes:
-  sqlite-data:

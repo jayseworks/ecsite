@@ -37,3 +37,10 @@ http://localhost:3000
 ```bash
 docker compose down
 ```
+
+### コマンド集
+
+### rubocop
+```
+docker compose run --rm web bundle exec rubocop
+```
