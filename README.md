@@ -38,9 +38,38 @@ http://localhost:3000
 docker compose down
 ```
 
-### コマンド集
+## コマンド集
 
-### rubocop
+### 監視ビルド（SCSS保存するたびに自動ビルドされる）
+
+```
+docker compose run --rm web npm run watch:css
+```
+
+### 再ビルド
+
+```
+docker compose build --no-cache
+```
+
+### Rails
+
+```
+docker compose run --rm web bin/rails g model User name:string
+docker compose run --rm web bin/rails g controller Users index
+docker compose run --rm web bin/rails c
+docker compose run --rm web bin/rails db:migrate
+docker compose run --rm web bin/rails test
+```
+
+### RuboCop
+
 ```
 docker compose run --rm web bundle exec rubocop
+```
+
+### CSS
+
+```
+docker compose run --rm web bin/rails css:build
 ```
