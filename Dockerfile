@@ -5,17 +5,21 @@ RUN apt-get update -qq && apt-get install -y \
   libsqlite3-dev \
   sqlite3 \
   nodejs \
-  npm
+  npm && \
+  rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
 RUN gem install bundler
 
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+COPY package.json package-lock.json ./
+RUN npm install
+
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 
-COPY Gemfile Gemfile.lock ./
-RUN bundle install
-
-CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
+CMD ["bash"]
