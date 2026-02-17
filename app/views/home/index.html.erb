@@ -1,0 +1,13 @@
+<div class="container mt-5">
+  <div class="text-center">
+    <h1>ようこそ</h1>
+    <p class="lead">ECサイトへようこそ</p>
+
+    <% if authenticated? %>
+      <p>ログイン中: <%= Current.session.user.email_address %></p>
+      <%= button_to "ログアウト", session_path, method: :delete, class: "btn btn-outline-secondary" %>
+    <% else %>
+      <%= link_to "ログイン", new_session_path, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
